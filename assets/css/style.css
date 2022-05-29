@@ -1,41 +1,91 @@
+@import url("http://fonts.cdnfonts.com/css/common-pixel");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+.clouds {
+  width: 600px;
+  animation: clouds-animation 10s linear infinite;
+}
+.coin {
+  width: 50px;
+  right: 0;
+  position: absolute;
+  animation: pipe-animation 1.5s linear infinite;
+}
+.darken {
+  animation: darken-animation 1s ease-out;
+  animation-fill-mode: forwards;
+}
+.pixel-font {
+  font-size: 50px;
+  font-family: "Common Pixel", sans-serif;
+  position: fixed !important;
+}
 .game-board {
-  width: 80%;
+  width: 100%;
   height: 500px;
-  border: 1px solid #333;
+  border-bottom: 20px solid transparent;
+
+  border-image: url("../images/floor.png") 30% repeat;
+
   margin: 0 auto;
   overflow: hidden;
   position: relative;
+
+  background: linear-gradient(#87ceeb, #e6f6ff);
 }
 
-.pipe {
+.hidden {
+  display: none;
+}
+.jump {
+  animation: mario-jump-animation 500ms ease-out;
+}
+.mario {
+  bottom: 0;
+  width: 140px;
+}
+.object {
   position: absolute;
+}
+.pipe {
   bottom: 0;
   width: 80px;
   animation: pipe-animation 1.5s infinite linear;
 }
-
-.mario {
-  position: absolute;
-  bottom: 0;
-  width: 140px;
+.replay {
+  align-self: center;
+  top: 70%;
+  padding: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 1px solid #e6f6ff;
+}
+.replay:hover {
+  background-color: #e6f6ff;
+  color: #000000;
+  opacity: 0.5;
 }
 
-.jump {
-  animation: mario-jump-animation 500ms ease-out;
-}
-
-@keyframes pipe-animation {
+@keyframes clouds-animation {
   from {
-    right: -80px;
+    right: -600px;
   }
   to {
     right: 100%;
+  }
+}
+@keyframes darken-animation {
+  from {
+    background: linear-gradient(#87ceeb, #e6f6ff);
+  }
+  to {
+    background: #000000;
+    opacity: 0.8;
+    color: #8d3e02a8;
   }
 }
 @keyframes mario-jump-animation {
@@ -55,5 +105,22 @@
   }
   100% {
     bottom: 0;
+  }
+}
+@keyframes pipe-animation {
+  from {
+    right: -80px;
+  }
+  to {
+    right: 100%;
+  }
+}
+
+@keyframes center-animation {
+  from {
+  }
+  to {
+    top: 50%;
+    right: 50%;
   }
 }
