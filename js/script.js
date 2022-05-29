@@ -4,15 +4,17 @@ const pipe = document.querySelector(".pipe");
 function removePxString(string) {
   return string.replace("px", "");
 }
-const jump = () => {
-  mario.classList.add("jump");
+function jump(event) {
+  if (event.key === "ArrowUp") {
+    mario.classList.add("jump");
 
-  setTimeout(() => {
-    mario.classList.remove("jump");
-  }, 500);
-};
+    setTimeout(() => {
+      mario.classList.remove("jump");
+    }, 500);
+  }
+}
 
-const loop = setInterval(() => {
+setInterval(() => {
   const pipePosition = pipe.offsetLeft;
   const marioPosition = +window
     .getComputedStyle(mario)
@@ -28,6 +30,8 @@ const loop = setInterval(() => {
     mario.src = "../assets/images/game-over.png";
     mario.style.width = "75px";
     mario.style.marginLeft = "50px";
+
+    clearInterval();
   }
 }, 10);
 document.addEventListener("keydown", jump);
