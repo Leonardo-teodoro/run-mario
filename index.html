@@ -22,12 +22,24 @@
         <img src="./assets/images/clouds.png" class="clouds object" />
         <img src="./assets/images/mario.webp" class="mario object" />
         <img src="./assets/images/pipe.png" class="pipe object" />
-        <img src="./assets/images/coin.png" class="coin object hidden" />
+        <img src="./assets/images/coin.png" class="coin object" />
 
         <div class="score">Score: 0</div>
+
+        <div class="instructions object hidden">
+          <h4>Instructions</h4>
+          <p>
+            Mario is on a run to find his princess! You need to escape from the
+            pipes in order to do so.
+          </p>
+          <p>To jump, press <kbd>↑</kbd></p>
+          <p>Each coin gives you +50 in your score!</p>
+        </div>
       </div>
     </div>
+
     <audio src="./assets/sounds/main.mp3" class="song" loop></audio>
+    <audio src="./assets/sounds/coin.wav" class="coin-sound"></audio>
   </body>
   <footer></footer>
 </html>

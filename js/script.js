@@ -4,6 +4,7 @@ const pipe = document.querySelector(".pipe");
 const score = document.querySelector(".score");
 const coin = document.querySelector(".coin");
 const clouds = document.querySelector(".clouds");
+const instructionsContainer = document.querySelector(".instructions");
 let initial_duration = 1.5;
 const board = document.querySelector(".game-board");
 const song = document.querySelector(".song");
@@ -11,6 +12,25 @@ const gameOver = document.querySelector(".game-over");
 
 let points = 0;
 // Funções auxiliares
+function hideElements() {
+  mario.classList.add("hidden");
+  pipe.classList.add("hidden");
+  score.classList.add("hidden");
+  coin.classList.add("hidden");
+}
+function showElements() {
+  mario.classList.remove("hidden");
+  pipe.classList.remove("hidden");
+  score.classList.remove("hidden");
+}
+
+function menuGame() {
+  pipe.style.animationPlayState = "paused";
+
+  hideElements();
+  addStartButton();
+  addInstructionButton();
+}
 
 function addGameOverText() {
   const gameOver = document.createElement("h2");
@@ -29,6 +49,7 @@ function resetGame() {
   updateScore();
 
   mario.removeAttribute("style");
+  coin.removeAttribute("style");
   clouds.removeAttribute("style");
   pipe.removeAttribute("style");
   mario.src = "../assets/images/mario.webp";
@@ -41,11 +62,46 @@ function addReplayButton() {
   const replay = document.createElement("h4");
 
   replay.classList.add("replay", "object");
-  replay.innerText = "Replay";
+  replay.innerText = "Play again";
   board.appendChild(replay);
 
   replay.addEventListener("click", () => {
     resetGame();
+  });
+}
+
+function addStartButton() {
+  const start = document.createElement("h4");
+
+  start.classList.add("start", "object");
+  start.innerText = "Start";
+  board.appendChild(start);
+
+  start.addEventListener("click", () => {
+    showElements();
+    board.removeChild(start);
+    board.removeChild(document.querySelector(".instructions-button"));
+    board.removeChild(document.querySelector(".instructions"));
+    init_game();
+    song.play();
+    document.addEventListener("keydown", jump);
+    pipe.style.animationPlayState = "running";
+    clouds.style.animationPlayState = "running";
+  });
+}
+function showInstructions() {
+  instructionsContainer.classList.remove("hidden");
+}
+function addInstructionButton() {
+  const instructionsButton = document.createElement("h4");
+
+  instructionsButton.classList.add("instructions-button", "object");
+  instructionsButton.innerText = "Instructions";
+  board.appendChild(instructionsButton);
+
+  instructionsButton.addEventListener("click", () => {
+    console.log("CLICO");
+    showInstructions();
   });
 }
 
@@ -61,19 +117,32 @@ function jump(event) {
     }, 500);
   }
 }
+
+function coinColission(marioPosition, coinX, coinY) {
+  if (
+    !coin.classList.contains("hidden") &&
+    coinX <= 100 &&
+    coinX > 0 &&
+    Math.abs(marioPosition - coinY) < 60
+  ) {
+    removeCoin();
+    updateScore(50);
+    document.querySelector(".coin-sound").play();
+  }
+}
+function removeCoin() {
+  coin.classList.add("hidden");
+}
 function spawnCoin() {
   const rand = parseInt((Math.random() * 100) % 10);
 
-  if (rand + 1 <= 4 && points % 50 == 0) {
-    if (!coin) {
-      coin = document.createElement("img");
-      coin.src = "../assets/images/coin.png";
-
-      coin.style.top = `${((rand * 10) % 50) + 1}%`;
+  if (rand + 1 <= 4 && points % 100 == 0) {
+    if (coin.classList.contains("hidden")) {
+      coin.style.bottom = `${((rand * 10) % 50) + 1}%`;
+      console.log(coin.style.bottom);
+      coin.classList.remove("coin");
       coin.classList.add("coin");
       coin.classList.remove("hidden");
-
-      console.log(coin);
     }
   }
 }
@@ -90,7 +159,6 @@ function updateScore(bonus) {
 }
 
 function updateVelocity() {
-  console.log(initial_duration);
   setTimeout(() => {
     if (points != 0 && points % 10 == 0 && initial_duration > 0.92) {
       initial_duration -= 0.002;
@@ -107,7 +175,7 @@ function changeSong(name, loop) {
 function isGameOver(pipePosition, marioPosition) {
   return pipePosition <= 120 && pipePosition > 0 && marioPosition < 100;
 }
-function endGame(pipePosition, marioPosition, cloudsPosition) {
+function endGame(pipePosition, marioPosition, cloudsPosition, coinXPosition) {
   changeSong("gameOver", false);
   pipe.style.animation = "none";
   pipe.style.left = `${pipePosition}px`;
@@ -122,23 +190,31 @@ function endGame(pipePosition, marioPosition, cloudsPosition) {
 
   clouds.style.animation = "none";
   clouds.style.left = `${cloudsPosition}px`;
+
+  coin.style.animation = "none";
+  coin.style.left = `${coinXPosition}px`;
   addGameOverText();
   addReplayButton();
 }
 
 function init_game() {
+  coin.classList.add("hidden");
   const game = setInterval(() => {
     const pipePosition = pipe.offsetLeft;
+
     const cloudsPosition = clouds.offsetLeft;
     const marioPosition = removePxString(window.getComputedStyle(mario).bottom);
+    const coinYPosition = removePxString(window.getComputedStyle(coin).bottom);
+    const coinXPosition = coin.offsetLeft;
 
     getScore();
     spawnCoin();
+    coinColission(marioPosition, coinXPosition, coinYPosition);
     if (isGameOver(pipePosition, marioPosition)) {
-      endGame(pipePosition, marioPosition, cloudsPosition);
+      endGame(pipePosition, marioPosition, cloudsPosition, coinXPosition);
       clearInterval(game);
     }
   }, 10);
 }
-init_game();
-document.addEventListener("keydown", jump);
+
+menuGame();

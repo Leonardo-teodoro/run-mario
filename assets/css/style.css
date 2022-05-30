@@ -10,14 +10,18 @@
   animation: clouds-animation 10s linear infinite;
 }
 .coin {
-  width: 50px;
-  right: 0;
+  width: 80px;
   position: absolute;
-  animation: pipe-animation 1s linear infinite;
+  animation: pipe-animation 1.2s infinite linear;
 }
 .darken {
   animation: darken-animation 1s ease-out;
   animation-fill-mode: forwards;
+}
+.pipe {
+  bottom: 0;
+  width: 80px;
+  animation: pipe-animation 1.5s infinite linear;
 }
 .pixel-font {
   font-size: 50px;
@@ -51,11 +55,7 @@
 .object {
   position: absolute;
 }
-.pipe {
-  bottom: 0;
-  width: 80px;
-  animation: pipe-animation 1.5s infinite linear;
-}
+
 .replay {
   align-self: center;
   top: 70%;
@@ -68,6 +68,34 @@
   background-color: #e6f6ff;
   color: #000000;
   opacity: 0.5;
+}
+.start {
+  align-self: center;
+  top: 50%;
+  padding: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 1px solid #000000;
+}
+.instructions-button {
+  bottom: 15%;
+
+  padding: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 1px solid #000000;
+}
+.start:hover,
+.instructions-button:hover {
+  background-color: #e6f6ff;
+  color: #8d3e02a8;
+}
+.instructions h4 {
+  padding-left: 15px;
+}
+.instructions p {
+  font-size: 20px;
+  padding-left: 10px;
 }
 
 @keyframes clouds-animation {
