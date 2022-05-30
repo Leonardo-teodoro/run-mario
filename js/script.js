@@ -2,8 +2,9 @@
 const mario = document.querySelector(".mario");
 const pipe = document.querySelector(".pipe");
 const score = document.querySelector(".score");
+const coin = document.querySelector(".coin");
 const clouds = document.querySelector(".clouds");
-const coin = document.createElement("img");
+let initial_duration = 1.5;
 const board = document.querySelector(".game-board");
 const song = document.querySelector(".song");
 const gameOver = document.querySelector(".game-over");
@@ -18,14 +19,23 @@ function addGameOverText() {
   gameOver.style.textAlign = "center";
   gameOver.style.position = "absolute";
   gameOver.innerText = "Game Over!";
+  gameOver.classList.add("game-over");
   board.appendChild(gameOver);
 }
 function resetGame() {
+  board.removeChild(document.querySelector(".replay"));
+  board.removeChild(document.querySelector(".game-over"));
   points = 0;
-  pipe.style.right = "-80px";
-  mario.style.bottom = 0;
+  updateScore();
+
+  mario.removeAttribute("style");
+  clouds.removeAttribute("style");
+  pipe.removeAttribute("style");
+  mario.src = "../assets/images/mario.webp";
+  board.classList.remove("darken");
   changeSong("main", true);
-  pipe.style.animation = "pipe-animation";
+  initial_duration = 1.5;
+  init_game();
 }
 function addReplayButton() {
   const replay = document.createElement("h4");
@@ -54,10 +64,16 @@ function jump(event) {
 function spawnCoin() {
   const rand = parseInt((Math.random() * 100) % 10);
 
-  if (rand + 1 <= 4 && points % 100 == 0) {
-    if (coin) {
+  if (rand + 1 <= 4 && points % 50 == 0) {
+    if (!coin) {
+      coin = document.createElement("img");
+      coin.src = "../assets/images/coin.png";
+
       coin.style.top = `${((rand * 10) % 50) + 1}%`;
-      coin.classList.toggle("hidden");
+      coin.classList.add("coin");
+      coin.classList.remove("hidden");
+
+      console.log(coin);
     }
   }
 }
@@ -70,6 +86,17 @@ function updateScore(bonus) {
     points = points + bonus;
   }
   score.innerText = `Score: ${points}`;
+  updateVelocity();
+}
+
+function updateVelocity() {
+  console.log(initial_duration);
+  setTimeout(() => {
+    if (points != 0 && points % 10 == 0 && initial_duration > 0.92) {
+      initial_duration -= 0.002;
+      pipe.style["-webkit-animation-duration"] = `${initial_duration}s`;
+    }
+  }, 10);
 }
 function changeSong(name, loop) {
   song.pause();
@@ -99,16 +126,19 @@ function endGame(pipePosition, marioPosition, cloudsPosition) {
   addReplayButton();
 }
 
-const game = setInterval(() => {
-  const pipePosition = pipe.offsetLeft;
-  const cloudsPosition = clouds.offsetLeft;
-  const marioPosition = removePxString(window.getComputedStyle(mario).bottom);
+function init_game() {
+  const game = setInterval(() => {
+    const pipePosition = pipe.offsetLeft;
+    const cloudsPosition = clouds.offsetLeft;
+    const marioPosition = removePxString(window.getComputedStyle(mario).bottom);
 
-  getScore();
-  if (isGameOver(pipePosition, marioPosition)) {
-    endGame(pipePosition, marioPosition, cloudsPosition);
-    clearInterval(game);
-  }
-}, 10);
-
+    getScore();
+    spawnCoin();
+    if (isGameOver(pipePosition, marioPosition)) {
+      endGame(pipePosition, marioPosition, cloudsPosition);
+      clearInterval(game);
+    }
+  }, 10);
+}
+init_game();
 document.addEventListener("keydown", jump);

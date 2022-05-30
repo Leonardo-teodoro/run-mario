@@ -13,7 +13,7 @@
   width: 50px;
   right: 0;
   position: absolute;
-  animation: pipe-animation 1.5s linear infinite;
+  animation: pipe-animation 1s linear infinite;
 }
 .darken {
   animation: darken-animation 1s ease-out;
