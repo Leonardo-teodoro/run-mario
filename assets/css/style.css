@@ -15,12 +15,14 @@
   animation: pipe-animation 1.2s infinite linear;
 }
 .darken {
-  animation: darken-animation 1s ease-out;
+  animation: darken-animation 2s ease-out;
   animation-fill-mode: forwards;
 }
 .pipe {
   bottom: 0;
   width: 80px;
+}
+.passing {
   animation: pipe-animation 1.5s infinite linear;
 }
 .pixel-font {
@@ -39,7 +41,7 @@
   overflow: hidden;
   position: relative;
 
-  background: linear-gradient(#87ceeb, #e6f6ff);
+  background: linear-gradient(#87ceeb, #728b99);
 }
 
 .hidden {
@@ -48,6 +50,7 @@
 .jump {
   animation: mario-jump-animation 500ms ease-out;
 }
+
 .mario {
   bottom: 0;
   width: 140px;
@@ -56,7 +59,7 @@
   position: absolute;
 }
 
-.replay {
+.play-again {
   align-self: center;
   top: 70%;
   padding: 10px;
@@ -64,7 +67,7 @@
   transform: translate(-50%, 0);
   border: 1px solid #e6f6ff;
 }
-.replay:hover {
+.play-again:hover {
   background-color: #e6f6ff;
   color: #000000;
   opacity: 0.5;
@@ -108,11 +111,11 @@
 }
 @keyframes darken-animation {
   from {
-    background: linear-gradient(#87ceeb, #e6f6ff);
+    background: linear-gradient(#87ceeb, #728b99);
   }
   to {
     background: #000000;
-    opacity: 0.8;
+
     color: #8d3e02a8;
   }
 }
