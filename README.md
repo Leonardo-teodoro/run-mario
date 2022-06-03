@@ -11,3 +11,4 @@ npm i
 ``
 npm run dev
 ``
+#### By default, the game will be running at http://localhost:3000/
