@@ -56,7 +56,6 @@ async function resetGame() {
   board.removeChild(document.querySelector(".play-again"));
   board.removeChild(document.querySelector(".game-over"));
   points = 0;
-  initial_duration = 1500;
 
   pipe.removeAttribute("style");
   pipe.animation = "none";
@@ -82,6 +81,8 @@ function addPlayAgainButton() {
   board.appendChild(playAgain);
 
   playAgain.addEventListener("click", () => {
+    initial_duration = 1500;
+    updateSpeed();
     resetGame();
   });
 }
@@ -181,7 +182,7 @@ function updateScore(bonus) {
 async function updateSpeed() {
   if (points != 0 && initial_duration > 0.98) {
     pipe.style.animation = "none";
-    initial_duration -= 0.2;
+    initial_duration -= 0.15;
 
     pipe.style.animation =
       "pipe-animation " + initial_duration + "ms " + "linear infinite";
@@ -242,7 +243,7 @@ async function initGame() {
 
   const game = setInterval(() => {
     const pipePosition = pipe.offsetLeft;
-    console.log(initial_duration);
+
     const cloudsPosition = clouds.offsetLeft;
     const marioPosition = removePxString(window.getComputedStyle(mario).bottom);
     const coinYPosition = removePxString(window.getComputedStyle(coin).bottom);
