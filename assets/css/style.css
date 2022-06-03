@@ -1,0 +1,169 @@
+@import url("http://fonts.cdnfonts.com/css/common-pixel");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.clouds {
+  width: 600px;
+  animation: clouds-animation 10s linear infinite;
+}
+.coin {
+  width: 80px;
+  position: absolute;
+  animation: pipe-animation 1.2s infinite linear;
+}
+.darken {
+  animation: darken-animation 2s ease-out;
+  animation-fill-mode: forwards;
+}
+.fade-in {
+  animation: fade-in 2s ease-out;
+}
+.pipe {
+  bottom: 0;
+  width: 80px;
+}
+.passing {
+  animation: pipe-animation 1.5s infinite linear;
+}
+.pixel-font {
+  font-size: 50px;
+  font-family: "Common Pixel", sans-serif;
+}
+.game-board {
+  width: 100%;
+  height: 500px;
+  border-bottom: 20px solid transparent;
+
+  border-image: url("../images/floor.png") 30% repeat;
+
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+
+  background: linear-gradient(#87ceeb, #728b99);
+}
+
+.hidden {
+  display: none;
+}
+.jump {
+  animation: mario-jump-animation 500ms ease-out;
+}
+
+.mario {
+  bottom: 0;
+  width: 140px;
+}
+.object {
+  position: absolute;
+}
+
+.play-again {
+  background-color: #000000;
+  align-self: center;
+  top: 70%;
+  padding: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 1px solid #8d3e02a8;
+  color: #8d3e02a8;
+}
+.play-again:hover {
+  background-color: #e6f6ff;
+  color: #000000;
+  opacity: 0.5;
+}
+.start {
+  align-self: center;
+  top: 50%;
+  padding: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 1px solid #000000;
+}
+.instructions-button {
+  bottom: 15%;
+
+  padding: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border: 1px solid #000000;
+}
+.start:hover,
+.instructions-button:hover {
+  background-color: #e6f6ff;
+  color: #8d3e02a8;
+}
+.instructions h4 {
+  padding-left: 15px;
+}
+.instructions p {
+  font-size: 20px;
+  padding-left: 10px;
+}
+
+@keyframes clouds-animation {
+  from {
+    right: -600px;
+  }
+  to {
+    right: 100%;
+  }
+}
+@keyframes darken-animation {
+  from {
+    background: linear-gradient(#87ceeb, #728b99);
+  }
+  to {
+    background: #000000;
+
+    color: #8d3e02a8;
+  }
+}
+@keyframes mario-jump-animation {
+  0% {
+    bottom: 0;
+  }
+
+  40% {
+    bottom: 180px;
+  }
+
+  50% {
+    bottom: 180px;
+  }
+  60% {
+    bottom: 180px;
+  }
+  100% {
+    bottom: 0;
+  }
+}
+@keyframes pipe-animation {
+  from {
+    right: -80px;
+  }
+  to {
+    right: 100%;
+  }
+}
+
+@keyframes center-animation {
+  from {
+  }
+  to {
+    top: 50%;
+    right: 50%;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

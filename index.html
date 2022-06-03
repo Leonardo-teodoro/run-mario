@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="http://fonts.cdnfonts.com/css/common-pixel" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="./js/script.js" defer></script>
+
+    <title>Run Mario</title>
+
+    <script
+      src="https://kit.fontawesome.com/96e95e4638.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="game-board pixel-font">
+        <img src="./assets/images/clouds.png" class="clouds object" />
+        <img src="./assets/images/mario.webp" class="mario object" />
+        <img src="./assets/images/pipe.png" class="pipe passing object" />
+        <img src="./assets/images/coin.png" class="coin object" />
+
+        <div class="score">Score: 0</div>
+
+        <div class="instructions object hidden">
+          <h4>Instructions</h4>
+          <p>
+            Mario is on a run to find his princess! You need to escape from the
+            pipes in order to do so.
+          </p>
+          <p>To jump, press <kbd>↑</kbd></p>
+          <p>Each coin gives you +50 in your score!</p>
+        </div>
+      </div>
+    </div>
+
+    <audio src="./assets/sounds/main.mp3" class="song" preload loop></audio>
+    <audio src="./assets/sounds/coin.wav" class="coin-sound" preload></audio>
+    <audio src="./assets/sounds/jump.wav" class="jump-sound" preload></audio>
+  </body>
+  <footer></footer>
+</html>
