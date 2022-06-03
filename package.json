@@ -2,7 +2,6 @@
   "name": "run-mario",
   "version": "1.0.0",
   "description": "I'll be using that project to learn more about css animation.",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite"
