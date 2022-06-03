@@ -18,6 +18,9 @@
   animation: darken-animation 2s ease-out;
   animation-fill-mode: forwards;
 }
+.fade-in {
+  animation: fade-in 2s ease-out;
+}
 .pipe {
   bottom: 0;
   width: 80px;
@@ -28,7 +31,6 @@
 .pixel-font {
   font-size: 50px;
   font-family: "Common Pixel", sans-serif;
-  position: fixed !important;
 }
 .game-board {
   width: 100%;
@@ -60,12 +62,14 @@
 }
 
 .play-again {
+  background-color: #000000;
   align-self: center;
   top: 70%;
   padding: 10px;
   left: 50%;
   transform: translate(-50%, 0);
-  border: 1px solid #e6f6ff;
+  border: 1px solid #8d3e02a8;
+  color: #8d3e02a8;
 }
 .play-again:hover {
   background-color: #e6f6ff;
@@ -153,5 +157,13 @@
   to {
     top: 50%;
     right: 50%;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

@@ -74,12 +74,18 @@ async function resetGame() {
   initGame();
 }
 function addPlayAgainButton() {
-  const playAgain = document.createElement("h4");
+  const playAgain = document.createElement("button");
 
-  playAgain.classList.add("play-again", "object");
+  playAgain.classList.add("play-again", "object", "pixel-font");
   playAgain.innerText = "Play again";
+  playAgain.classList.add("fade-in");
+  playAgain.disabled = true;
+
   board.appendChild(playAgain);
 
+  playAgain.addEventListener("animationend", () => {
+    playAgain.disabled = false;
+  });
   playAgain.addEventListener("click", () => {
     initial_duration = 1500;
     updateSpeed();
@@ -221,7 +227,9 @@ async function endGame(
   coin.style.left = `${coinXPosition}px`;
 
   addGameOverText();
+
   addPlayAgainButton();
+
   board.classList.add("end");
 }
 async function levelUp() {
